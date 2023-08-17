@@ -15,7 +15,7 @@ func main() {
 	subcommand := args[1]
 	switch subcommand {
 	case "rename":
-		rename.ExeRename()
+		rename.ExeRename(args[2:])
 	case "resize":
 		fmt.Print("Resizing")
 	default:
