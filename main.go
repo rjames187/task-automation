@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"task-auto/rename"
 )
 
 func main() {
@@ -14,7 +15,7 @@ func main() {
 	subcommand := args[1]
 	switch subcommand {
 	case "rename":
-		fmt.Print("Renaming")
+		rename.ExeRename()
 	case "resize":
 		fmt.Print("Resizing")
 	default:
