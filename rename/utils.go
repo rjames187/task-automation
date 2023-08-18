@@ -1,5 +1,7 @@
 package rename
 
+import "fmt"
+
 func segregateFilePath(fullPath string) (string, string, string, error) {
 	runes := []rune(fullPath)
 
@@ -35,5 +37,17 @@ func segregateFilePath(fullPath string) (string, string, string, error) {
 	name := string(nameSlice)
 	path := string(pathSlice)
 
+	fmt.Println(path)
+
 	return ext, name, path, nil
+}
+
+func flipSlashes(path string) string {
+	runes := []rune(path)
+	for i, char := range runes {
+		if char == '\\' {
+			runes[i] = '/'
+		}
+	}
+	return string(runes)
 }
