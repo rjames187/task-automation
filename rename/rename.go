@@ -13,6 +13,7 @@ type flagArgs struct {
 	inDir string
 	outDir string
 	outName string
+	rgx string
 }
 
 func newFlagSet() (*flag.FlagSet, *flagArgs) {
@@ -24,6 +25,7 @@ func newFlagSet() (*flag.FlagSet, *flagArgs) {
 	flags.StringVar(&flagArgs.inDir, "inDir", "", "input directory")
 	flags.StringVar(&flagArgs.outDir, "outDir", "", "output directory")
 	flags.StringVar(&flagArgs.outName, "on", "", "output file name")
+	flags.StringVar(&flagArgs.rgx, "rgx", "", "regex pattern to match")
 	return flags, flagArgs
 }
 

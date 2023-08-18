@@ -44,12 +44,25 @@ func renameMany(flagArgs *flagArgs) {
 			return err
 		}
 		if !info.IsDir() {
-			i++
 			path = flipSlashes(path)
-			ext, _, dir, err := segregateFilePath(path)
+			ext, name, dir, err := segregateFilePath(path)
 			if err != nil {
 				return err
 			}
+			// if is there a regular expression, try matching
+			if flagArgs.rgx != "" {
+				doesMatch, err := matches(name, flagArgs.rgx)
+				if err != nil {
+					fmt.Println(err)
+					os.Exit(1)
+				}
+				if !doesMatch {
+					fmt.Printf("%s doesn't match %s", name, flagArgs.rgx)
+					return nil
+				}
+			}
+			// rename the files
+			i++
 			newPath := fmt.Sprintf("%s%s%d.%s", dir, flagArgs.outName, i, ext)
 			err = os.Rename(path, newPath)
 			if err != nil {

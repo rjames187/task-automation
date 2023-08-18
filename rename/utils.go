@@ -3,7 +3,6 @@ package rename
 import (
 	"fmt"
 	"regexp"
-	"strings"
 )
 
 func segregateFilePath(fullPath string) (string, string, string, error) {
@@ -57,7 +56,6 @@ func flipSlashes(path string) string {
 }
 
 func matches(name string, rgx string) (bool, error) {
-	rgx = strings.ReplaceAll(rgx, `\`, `\\`)
 	regex, err := regexp.Compile(rgx)
 	if err != nil {
 		return false, err
