@@ -1,6 +1,10 @@
 package rename
 
-import "fmt"
+import (
+	"fmt"
+	"regexp"
+	"strings"
+)
 
 func segregateFilePath(fullPath string) (string, string, string, error) {
 	runes := []rune(fullPath)
@@ -50,4 +54,13 @@ func flipSlashes(path string) string {
 		}
 	}
 	return string(runes)
+}
+
+func matches(name string, rgx string) (bool, error) {
+	rgx = strings.ReplaceAll(rgx, `\`, `\\`)
+	regex, err := regexp.Compile(rgx)
+	if err != nil {
+		return false, err
+	}
+	return regex.MatchString(name), nil
 }
