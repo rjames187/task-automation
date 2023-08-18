@@ -12,16 +12,18 @@ type flagArgs struct {
 	mult bool
 	inDir string
 	outDir string
+	outName string
 }
 
 func newFlagSet() (*flag.FlagSet, *flagArgs) {
 	flags := flag.NewFlagSet("rename", flag.ContinueOnError)
 	flagArgs := &flagArgs{}
-	flags.BoolVar(&flagArgs.mult, "mult", false, "whether there are multiple files or not")
 	flags.StringVar(&flagArgs.input, "i", "", "input path for renaming")
 	flags.StringVar(&flagArgs.output, "o", "", "output name not including path")
+	flags.BoolVar(&flagArgs.mult, "mult", false, "whether there are multiple files or not")
 	flags.StringVar(&flagArgs.inDir, "inDir", "", "input directory")
 	flags.StringVar(&flagArgs.outDir, "outDir", "", "output directory")
+	flags.StringVar(&flagArgs.outName, "on", "", "output file name")
 	return flags, flagArgs
 }
 
@@ -35,6 +37,8 @@ func ExeRename(args []string) {
 	switch flagArgs.mult {
 	case false:
 		renameSingle(flagArgs)
+	case true:
+		renameMany(flagArgs)
 	}
 	os.Exit(0)
 }
